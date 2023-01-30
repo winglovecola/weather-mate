@@ -1,17 +1,17 @@
-# Smart Planner
+# Weather Mate
 
 ## Description
 
-Smart Planner is an easy to use and function rich work day scheduler. It save user's daily plan and let them know for any up coming event.   
+Weather Mate provide one the the best service in weather forcast. With us, planning your day or trip become simple! 
 
 
 ## Live Site
 
-https://winglovecola.github.io/smart-planner
+https://winglovecola.github.io/weather-mate
 
 ## Preview
 
-![Website screenshot](https://github.com/winglovecola/smart-planner/blob/main/assets/images/screenshot.jpg?raw=true)
+![Website screenshot](https://github.com/winglovecola/weather-mate/blob/main/assets/images/screenshot.jpg?raw=true)
 
 
 ## License
