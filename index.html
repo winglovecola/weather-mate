@@ -23,69 +23,77 @@
   </head>
 
   <body>
+    <!--header section-->
     <header class="mb-4">
       <div id="header-div"><div id="logo-div">Weather Mate</div>
       <div id="header-bar">Plan your day made simple!</div>
-    </div>
-      
- 
-      
+    </div>  
     </header>
+
+
+    <!--main section-->
     <main class="container">
       
       <div id="main-wrapper" class="row">
 
+
+        <!--search section-->
         <section id="search-sec" class="col-12 col-md-4 col-xl-4 h-100">
-          <h2>Search for a City:</h2>
-          <input id="search-input" type="text" placeholder="Enter a city" autocomplete="on" runat="server" />  
-          <section id="weather-search-history"></section>
+          <div id="search-div">
+            <h2>Search for a City:</h2>
+            <input id="search-input" type="text" placeholder="Enter a city" autocomplete="on" runat="server" />  
+            <section id="weather-search-history"></section>
+          </div>
         </section>
 
 
-
-        <section id="forcast-sec" class="col-12 col-md-8 col-xl-8">
+        <!--forcast section-->
+        <section id="forcast-sec" class="col-12 col-md-8 col-xl-8">  
           <section id="weather-now-sec"></section>
           <section id="weather-forcast-sec"></section>
+          <div id="loading"><img src="./assets/images/loading.gif"></div>
 
+
+          <!--popular cities tabs-->
           <section id="world-weather">
 
             <h1>Popular Cities: </h1>
 
             <div id="world-weather-flex">
 
-              <div class="big-city-div" onclick="geocodeSearch('Toronto', 'ON, Canada')">
+              <div class="popular-city-div" onclick="geocodeSearch('Toronto', 'ON, Canada')">
                 <div><span class="title">Toronto</span><br><br>ON, Canada</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('Montreal', 'QC, Canada')">
+              <div class="popular-city-div" onclick="geocodeSearch('Montreal', 'QC, Canada')">
                 <div><span class="title">Montreal</span><br><br>QC, Canada</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('Calgary', 'AB, Canada')">
+              <div class="popular-city-div" onclick="geocodeSearch('Calgary', 'AB, Canada')">
                 <div><span class="title">Calgary</span><br><br>AB, Canada</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('Ottawa', 'AB, Canada')">
+              <div class="popular-city-div" onclick="geocodeSearch('Ottawa', 'AB, Canada')">
                 <div><span class="title">Ottawa</span><br><br>AB, Canada</div>
               </div>
             
-              <div class="big-city-div" onclick="geocodeSearch('Edmonton', 'AB, Canada')">
+              <div class="popular-city-div" onclick="geocodeSearch('Edmonton', 'AB, Canada')">
                 <div><span class="title">Edmonton</span><br><br>AB, Canada</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('New York', 'NY, USA')">
+              <div class="popular-city-div" onclick="geocodeSearch('New York', 'NY, USA')">
                 <div><span class="title">New York</span><br><br>NY, USA</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('Los Angeles', 'NY, USA')">
+              <div class="popular-city-div" onclick="geocodeSearch('Los Angeles', 'NY, USA')">
                 <div><span class="title">Los Angeles</span><br><br>NY, USA</div>
               </div>
   
-              <div class="big-city-div" onclick="geocodeSearch('Chicago', 'IL, USA')">
+              <div class="popular-city-div" onclick="geocodeSearch('Chicago', 'IL, USA')">
                 <div><span class="title">Chicago</span><br><br>IL, USA</div>
               </div>
          
-              <div class="big-city-div" onclick="geocodeSearch('Houston', 'TX, USA')">
+              <div class="popular-city-div" onclick="geocodeSearch('Houston', 'TX, USA')">
                 <div><span class="title">Houston</span><br><br>TX, USA</div>
               </div>
 
@@ -95,14 +103,10 @@
           
           </section>
 
-
-
         </section>
 
       </div>
 
-    
-      
     </main>
 
     <!-- footer section -->
@@ -113,15 +117,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
-
-
-
     <script src="./assets/js/jquery-ui.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-    
-    
 
     <script src="./assets/js/script.js"></script>
 

@@ -26,9 +26,9 @@ let searchedLocationData = {};
 
 let input, options, autocomplete;
 
-function initGoogleAutocomplete() {
 
-  //https://maps.googleapis.com/maps/api/geocode/json?address=new%20york&key=AIzaSyAplY5us4aXATgl9RfT9VTs9SN8qh4Q-4I
+//initializing google place api
+function initGoogleAutocomplete() {
 
 
   //option for search cities in United States and Canada
@@ -44,7 +44,7 @@ function initGoogleAutocomplete() {
   autocomplete = new google.maps.places.Autocomplete(input, options);
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
       let place = autocomplete.getPlace();
-
+      console.log (place)
 
       if (place.geometry)
       {
@@ -53,13 +53,10 @@ function initGoogleAutocomplete() {
         searchedLat = place.geometry.location.lat();
         searchedLng = place.geometry.location.lng();
 
-        let adrAddress = place.adr_address; 
 
+
+        let adrAddress = place.adr_address; 
         
-        //"<span class="locality">Truckee</span>, <span class="region">CA</span> <span class="postal-code">96161</span>, <span class="country-name">USA</span>"
-        //console.log (adrAddress);
-        
-      
         searchedLocationData.location = searchedLocation;
         searchedLocationData.region = strExtract (adrAddress, "class=\"region\">", "</span>");
         searchedLocationData.countryName = strExtract (adrAddress, "class=\"country-name\">", "</span>");
@@ -67,9 +64,12 @@ function initGoogleAutocomplete() {
         searchedLocationData.lng = searchedLng;
 
 
-        console.log ("searchedLocationData", searchedLocationData);
+        //console.log ("searchedLocationData", searchedLocationData);
+
+        //save search history
         saveSearch (searchedLocationData);
 
+        //execute weather api using "open weather"
         checkWeather (searchedLat, searchedLng);
       }
   });
@@ -77,13 +77,17 @@ function initGoogleAutocomplete() {
 
 
 
-
+//add key listener for ENTER key
 $("#search-input").on("keyup", function(e) {
   if(e.keyCode == 13) { //press enter
     geocodeSearch("first-suggestion", "");
   }
 });
 
+
+
+//google geocode search
+//user hit ENTER key to search
 function geocodeSearch(placeName, placeAddress) {
   
   if (placeName == "first-suggestion")
@@ -95,19 +99,17 @@ function geocodeSearch(placeName, placeAddress) {
   }
 
 
-  var searchTerm = placeName + " " + placeAddress;
-
+  let searchTerm = placeName + " " + placeAddress;
 
 
   $("#search-input").val(searchTerm);
-
 
 
   let geocoder = new google.maps.Geocoder();
   geocoder.geocode({"address":searchTerm}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) 
       {
-    console.log (results[0]);
+        //console.log (results[0]);
         searchedLocation = placeName;
         searchedLat = results[0].geometry.location.lat();
         searchedLng = results[0].geometry.location.lng();
@@ -133,76 +135,88 @@ function geocodeSearch(placeName, placeAddress) {
 
 
 
-  //load plan data
-  loadSearchedLocationData ();
+//contruct search history buttons
+function renderSearchedLocation () {
+  
+  if (searchHistoryData)
+  {
+    let weatherSearchHistoryHtml = "";
 
 
-  function renderSearchedLocation () {
-    
-    if (searchHistoryData)
-    {
-      let weatherSearchHistoryHtml = "";
+    //console.log ("searchHistoryDataRaw", searchHistoryData.length)
+    searchHistoryData.forEach (function (thisWeatherData) {
 
-
-      //console.log ("searchHistoryDataRaw", searchHistoryData.length)
-      searchHistoryData.forEach (function (thisWeatherData) {
-
-        
-
-        let sdata = thisWeatherData.location + " " + thisWeatherData.region + ", " +  thisWeatherData.countryName;
-
-        weatherSearchHistoryHtml += "<div class='weather-history-tab' location='" + thisWeatherData.location + "' lat='" + thisWeatherData.lat + "' lng='" + thisWeatherData.lng + "' sdata='" + sdata + "'><b>" + thisWeatherData.location + "</b> " + thisWeatherData.region + ", " +  thisWeatherData.countryName + " </div>";
-      });
       
 
-      $('#weather-search-history').html ("<br><br><br><br>Search History:<br><br>" + weatherSearchHistoryHtml);
+      let sdata = thisWeatherData.location + " " + thisWeatherData.region + ", " +  thisWeatherData.countryName;
+
+      weatherSearchHistoryHtml += "<div class='weather-history-tab' location='" + thisWeatherData.location + "' lat='" + thisWeatherData.lat + "' lng='" + thisWeatherData.lng + "' sdata='" + sdata + "'><b>" + thisWeatherData.location + "</b> " + thisWeatherData.region + ", " +  thisWeatherData.countryName + " </div>";
+    });
+    
+
+    $('#weather-search-history').html ("<br><br><br><br>Search History:<br><br>" + weatherSearchHistoryHtml);
 
 
-      $( ".weather-history-tab" ).on("click", function() {
-        
-
-        document.getElementById('search-input').value = $(this).attr ("sdata");
+    $( ".weather-history-tab" ).on("click", function() {
       
-        searchedLocation = $(this).attr ("location");
+      //set search bar text
+      document.getElementById('search-input').value = $(this).attr ("sdata");
+    
+      searchedLocation = $(this).attr ("location");
 
-        checkWeather ($(this).attr ("lat"), $(this).attr ("lng"));
+      //check weather api
+      checkWeather ($(this).attr ("lat"), $(this).attr ("lng"));
 
-      });
-    }
-
+    });
   }
 
+}
 
-  //load plan data function
-  function loadSearchedLocationData () {
 
-    searchHistoryDataRaw = localStorage.getItem("search-history");
-    
-    
-    if (searchHistoryDataRaw)
-    {
-      searchHistoryData = JSON.parse(searchHistoryDataRaw);
+//load search location data
+function loadSearchedLocationData () {
 
-      renderSearchedLocation ();
-    }
+  searchHistoryDataRaw = localStorage.getItem("search-history");
+  
+  
+  if (searchHistoryDataRaw)
+  {
+    searchHistoryData = JSON.parse(searchHistoryDataRaw);
+
+    renderSearchedLocation ();
   }
+}
 
 
 
-
+//string extract function
 function strExtract (str, beginningStr, EndingStr) {
 
-  let extractedStr = str.substring(str.indexOf (beginningStr) + beginningStr.length);
+  let extractedStr = "";
 
-  extractedStr = extractedStr.substring(0, extractedStr.indexOf (EndingStr));
 
+  if (str.indexOf (beginningStr) !== -1)
+  {
+    extractedStr = str.substring(str.indexOf (beginningStr) + beginningStr.length);
+
+    extractedStr = extractedStr.substring(0, extractedStr.indexOf (EndingStr));
+  }
+  
   return extractedStr;
 }
 
+
+
+//weather api function
 function checkWeather (lat, lng) {
 
-  //get open weather api 
+
+
+  //open weather api 
   let openWeatherApiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lng + "&appid=55c6ad05fb90696b0befe8a67cb935d7";
+
+  //show loading icon
+  $("#loading").show ();
 
   if (lat != undefined && lng != undefined)
   {
@@ -213,48 +227,48 @@ function checkWeather (lat, lng) {
     .then(function (data) {
       //console.log('Fetch Response \n-------------');
       //console.log(data);
-  
+      
       weatherShow (data);
   
     });
 
   }
-
-
-
 }  
 
 
 
 function weatherShow (weatherDataRaw) {
 
+  //scroll to weather now div
+  $("html, body").animate({ scrollTop: $("#weather-now-sec").offset().top - 100}, 500);
 
-  $("html, body").animate({ scrollTop: 0 }, 300);
+  $("#loading").hide ();
+  
   $("#weather-now-sec").show ();
   $("#weather-forcast-sec").show ();
 
   
+
+
   weatherNowHtml = "";
   weatherForcastHtml = "";
 
   let listCount = 0;
   let dateDiffBegin = null;
 
+  //console.log (weatherDataRaw);
+  //console.log (weatherDataRaw.list.length)
+
 
   weatherDataRaw.list.forEach (function (thisWeather) {
 
-
+    let todayDate = dayjs ();
     let weatherDate = dayjs(thisWeather.dt * 1000);
 
     let weatherDateHour = weatherDate.format ("hA");
 
-    let weatherDateNum = parseInt (weatherDate.format ("D"));
-    let todayDateNum = parseInt (dayjs ().format ("D"));
-    
-    
+    let dateDiff = weatherDate.diff(todayDate, "d")
 
-
-    let dateDiff = weatherDateNum - todayDateNum;
     if (dateDiffBegin === null)
       dateDiffBegin = dateDiff;
 
@@ -267,6 +281,7 @@ function weatherShow (weatherDataRaw) {
 
     listCount++;
 
+    
     //console.log ("test: " + dateDiff + "==" +  dateDiffBegin);
     if (dateDiff == dateDiffBegin) //today
     {
@@ -276,22 +291,25 @@ function weatherShow (weatherDataRaw) {
     else if (dateDiff <= 3 + dateDiffBegin)
     {
       
-      
       if (weatherDateHour != "10AM")
         return;
 
     }
     else //fifth date
     {
-      if (weatherDateHour != "10AM" && weatherDateHour != "10PM" )
-        return;
+      //console.log ("listCount:" + weatherDataRaw.list.length + " != " +listCount)
+      if (weatherDataRaw.list.length != listCount)
+      {
+        if (weatherDateHour != "10AM" && weatherDateHour != "10PM" )
+          return;
+      }
     }
 
     
     let today = dayjs ().format ("M/DD/YYYY");
     
     //let dateHtml = weatherDate.format ("YYYY-MM-DD hA");
-    //console.log(dateHtml);
+    //console.log(weatherDate.format ("YYYY-MM-DD hA"));
     
     let tempF = Math.round (1.8 * (thisWeather.main.temp - 273) + 32, 2);  
     let windMph = Math.round (thisWeather.wind.speed * 2.2369, 2);
@@ -360,19 +378,21 @@ function weatherShow (weatherDataRaw) {
 
     }
 
-
-    
   });
 
-  $("#weather-now-sec").html (weatherNowHtml);
 
+
+  $("#weather-now-sec").html (weatherNowHtml);
 
   $("#weather-forcast-sec").html ("<div class='title-div'>5-Day Forcast</div>" + weatherForcastHtml);
 }
 
 
-function saveSearch (thisSearchedLocationData) {
 
+
+
+
+function saveSearch (thisSearchedLocationData) {
 
   Object.keys(searchHistoryData).forEach (function (key) {
     
@@ -391,20 +411,13 @@ function saveSearch (thisSearchedLocationData) {
   });
 
 
-
-
- 
-
   
-  //added to front of the array list
-  console.log (searchHistoryData)
-  //searchHistoryData.push (thisSearchedLocationData);
-
-  console.log ("length:" + searchHistoryData.length)
-
+  
   //must make a new copy of the object in order to prevent error
   const clone = Object.assign({}, thisSearchedLocationData); //structuredClone(thisSearchedLocationData);
-
+  
+  
+  //added to front of the array list
   searchHistoryData.unshift (clone);
 
   if (searchHistoryData.length > 10) //only limit to 15 search history to be saved
@@ -417,4 +430,11 @@ function saveSearch (thisSearchedLocationData) {
 
   renderSearchedLocation ();
 }
+
+
+
+
+
+//load search location data
+loadSearchedLocationData ();
 

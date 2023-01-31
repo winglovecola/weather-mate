@@ -37,6 +37,8 @@ header {
   border-bottom-right-radius: 20px;
 }
 
+
+
 #logo-div {
   display:block;
   position: absolute;
@@ -49,9 +51,7 @@ header {
   font-weight: bold;
   color: rgb(0, 0, 0);
   padding: 15px;
-
   z-index: 1;
-
 }
 
 
@@ -59,6 +59,7 @@ header {
 .weather-icon {
   width: 70px;
 }
+
 
 .icon-div {
   display: inline-block;
@@ -70,6 +71,8 @@ header {
 }
 
 
+
+/*weather history section*/
 .weather-history-tab {
 
   display: block;
@@ -87,11 +90,15 @@ header {
   background-color:antiquewhite;
 }
 
+
+
+
+/*search section*/
 #search-input {
 
   width: 100%;
   max-width: 350px;
-  height: 40px;
+  height: 50px;
   font-size:  20px;
   border-radius: 5px;
   padding: 10px;
@@ -103,15 +110,44 @@ header {
 #search-sec {
 
   display: block;
-  min-height: 600px;
+  padding: 20px;
+  margin-bottom: 30px;
+  
+}
+
+
+#search-div {
+  display: block;
+  min-height: 620px;
   border: 1px solid black;
   border-radius: 10px;
   padding: 20px;
 }
 
+
+/*loading section*/
+#loading {
+
+  display: none;
+  position: absolute;
+  width: 100vh;
+  height: 100%;
+  text-align: center;
+  padding: 70px 0;
+}
+
+#loading img {
+
+  width: 100px;
+}
+
+
+/*forcast section*/
+
 #forcast-sec {
   display: block;
   padding-left: 25px;
+  padding-right: 25px;
   min-height: 600px;
 }
 
@@ -122,48 +158,51 @@ header {
   flex-direction: row;
 }
 
+
+/*popular cities section*/
+
 #world-weather h1 {
 
   display: block;
   font-size: 35px;
 }
 
-.big-city-div {
+.popular-city-div {
 
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
-  width: 220px;
-  height: 200px;
+  width: 195px;
+  height: 180px;
   padding: 10px;
   margin: 10px;
   transition: opacity 1s ease-out;
 }
 
 
-.big-city-div:hover {
+.popular-city-div:hover {
 
   background-color: antiquewhite;
   cursor: pointer;
 }
 
 
-.big-city-div div {
+.popular-city-div div {
 
   text-align: center;
   
 }
 
-.big-city-div .title {
+.popular-city-div .title {
 
   font-size: 30px;
   
 }
 
 
-
+/*forcast today section*/
 #weather-now-sec {
 
   display: none;
@@ -211,6 +250,9 @@ header {
   padding: 10px;
   font-size: 16px;
 }
+
+
+/*forcast 5 days section*/
 
 #weather-forcast-sec {
  
