@@ -328,8 +328,8 @@ function weatherShow (weatherDataRaw) {
         <div class='icon-div'>" + weatherIconLg + "<br>" + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
           <div class='temp-div'>" + tempF + "&#176;F</div>\
-          <div class='wind-div'>Wind: " + windMph + "MPH</div>\
-          <div class='humidity-div'>Humidity: " + humidity + "%</div>\
+          <div class='wind-div'>Wind " + windMph + " MPH</div>\
+          <div class='humidity-div'>Humidity " + humidity + "%</div>\
         </div>\
       </div>";
 
@@ -346,8 +346,8 @@ function weatherShow (weatherDataRaw) {
         <div class='icon-div'>" + weatherIcon + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
           <div class='temp-div'>" + tempF + "&#176;F</div>\
-          <div class='wind-div'>Wind: " + windMph + "MPH</div>\
-          <div class='humidity-div'>Humidity: " + humidity + "%</div>\
+          <div class='wind-div'>Wind " + windMph + " MPH</div>\
+          <div class='humidity-div'>Humidity " + humidity + "%</div>\
         </div>\
       </div>";
 
@@ -371,8 +371,8 @@ function weatherShow (weatherDataRaw) {
         <div class='icon-div'>" + weatherIcon + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
           <div class='temp-div'>" + tempF + "&#176;F</div>\
-          <div class='wind-div'>Wind: " + windMph + "MPH</div>\
-          <div class='humidity-div'>Humidity: " + humidity + "%</div>\
+          <div class='wind-div'>Wind " + windMph + " MPH</div>\
+          <div class='humidity-div'>Humidity " + humidity + "%</div>\
         </div>\
       </div>";
   
