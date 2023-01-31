@@ -57,18 +57,26 @@ header {
 
 
 .weather-icon {
-  width: 70px;
+  width: 80px;
+}
+
+.weather-icon-lg {
+  width: 120px;
+  
 }
 
 
 .icon-div {
   display: inline-block;
-  width: 210px;
-  border: 1px solid rgb(199, 199, 199);
+  width: 230px;
+  border: 1px solid rgb(227, 227, 227);
   border-radius: 10px;
-  padding: 5px;
+  padding: 10px;
   text-transform: capitalize;
+  color:rgb(152, 152, 152);
+  
 }
+
 
 
 
@@ -206,7 +214,7 @@ header {
 #weather-now-sec {
 
   display: none;
-  border: 1px solid black;
+  border: 1px solid rgb(130, 130, 130);
   border-radius: 10px;
   margin-bottom: 20px;
   
@@ -234,7 +242,7 @@ header {
 
   display: inline-block;
   padding: 10px;
-  font-size: 16px;
+  font-size: 30px;
 }
 
 #weather-now-div .wind-div {
@@ -263,7 +271,7 @@ header {
 #weather-forcast-div {
  
   display: block;
-  border: 1px solid black;
+  border: 1px solid rgb(130, 130, 130);
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 10px;
@@ -285,7 +293,7 @@ header {
 
   display: inline-block;
   padding: 10px;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 #weather-forcast-div .wind-div {

@@ -306,7 +306,7 @@ function weatherShow (weatherDataRaw) {
     }
 
     
-    let today = dayjs ().format ("M/DD/YYYY");
+    let today = dayjs ().format ("MMM DD YYYY");
     
     //let dateHtml = weatherDate.format ("YYYY-MM-DD hA");
     //console.log(weatherDate.format ("YYYY-MM-DD hA"));
@@ -316,16 +316,18 @@ function weatherShow (weatherDataRaw) {
     let humidity = thisWeather.main.humidity;
 
     let weatherIcon = "<img class='weather-icon' src='http://openweathermap.org/img/wn/" + thisWeather.weather[0].icon + "@2x.png'> ";
+
+    let weatherIconLg = "<img class='weather-icon-lg' src='http://openweathermap.org/img/wn/" + thisWeather.weather[0].icon + "@4x.png'> ";
     
     
     if (listCount == 1) //always use the first weather data from the array as the weatherNowHtml
     {
           
       weatherNowHtml = "<div id='weather-now-div'>\
-        <div class='location-div'>" + searchedLocation + " (" + today + ")</div>\
-        <div class='icon-div'>" + weatherIcon + thisWeather.weather[0].description + "</div>\
+        <div class='location-div'><b>" + searchedLocation + "</b> (" + today + ")</div>\
+        <div class='icon-div'>" + weatherIconLg + "<br>" + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
-          <div class='temp-div'>Temp: " + tempF + "&#176;F</div>\
+          <div class='temp-div'>" + tempF + "&#176;F</div>\
           <div class='wind-div'>Wind: " + windMph + "MPH</div>\
           <div class='humidity-div'>Humidity: " + humidity + "%</div>\
         </div>\
@@ -336,14 +338,14 @@ function weatherShow (weatherDataRaw) {
     else if (dateDiff <= 3 + dateDiffBegin)
     {
       
-      let forcastDate = weatherDate.format ("M/DD/YYYY");
+      let forcastDate = weatherDate.format ("MMM DD");
 
 
       let weatherForcastDiv = "<div id='weather-forcast-div'>\
         <div class='date-div'>" + forcastDate + "</div>\
         <div class='icon-div'>" + weatherIcon + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
-          <div class='temp-div'>Temp: " + tempF + "&#176;F</div>\
+          <div class='temp-div'>" + tempF + "&#176;F</div>\
           <div class='wind-div'>Wind: " + windMph + "MPH</div>\
           <div class='humidity-div'>Humidity: " + humidity + "%</div>\
         </div>\
@@ -356,19 +358,19 @@ function weatherShow (weatherDataRaw) {
     {
       if (weatherDateHour == "10AM")
       {
-        var forcastDate = weatherDate.format ("M/DD/YYYY");
+        var forcastDate = weatherDate.format ("MMM DD");
       }
       else
       {
         //since open weather only has 5 day of forcast, thus need to make up an extra day
-        var forcastDate = dayjs((thisWeather.dt + 86400) * 1000).format ("M/DD/YYYY");
+        var forcastDate = dayjs((thisWeather.dt + 86400) * 1000).format ("MMM DD");
       }
 
       let weatherForcastDiv = "<div id='weather-forcast-div'>\
         <div class='date-div'>" + forcastDate + "</div>\
         <div class='icon-div'>" + weatherIcon + thisWeather.weather[0].description + "</div>\
         <div class='info-div'>\
-          <div class='temp-div'>Temp: " + tempF + "&#176;F</div>\
+          <div class='temp-div'>" + tempF + "&#176;F</div>\
           <div class='wind-div'>Wind: " + windMph + "MPH</div>\
           <div class='humidity-div'>Humidity: " + humidity + "%</div>\
         </div>\
